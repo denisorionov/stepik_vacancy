@@ -14,16 +14,16 @@
         </div>
       </div>
       <div class="col-12 col-lg-8">
-        <section class="pl-3">{% load static %}
-          <a href="/companies/{{ inf.company_id }}"><img src="{% static inf.logo %}" width="130" height="80" alt=""></a>
+        <section class="pl-3">
+          <a href="/companies/{{ vacancy.company.id }}"><img src="{{ vacancy.company.logo.url }}" width="130" height="80" alt=""></a>
           <div class="d-flex align-items-baseline align-content-baseline">
             <h1 class="h2 mt-4 font-weight-bold" >{{ vacancy.title }}</h1>
             <p class="m-0 pl-3">{{ vacancy.salary_min }} – {{ vacancy.salary_max }} Р</p>
           </div>
-          <p class="mt-2">{{ vacancy.title }} • Средний (Middle) • PHP • PostgreSQL • MySQL • Node.js • Laravel • Symfony • Yii framework • Sails.js • Rabbitmq • Kafka</p>
-          <p class="text-muted mb-4">Primal Assault (15-30 человек), Рязань или удаленно</p>
+          <p class="mt-2">{{ vacancy.title }} • {{ vacancy.specialty }}</p>
+          <p class="text-muted mb-4">{{ vacancy.company.name }}, ({{ vacancy.company.employee_count }} человек), {{ vacancy.company.location }}</p>
           <div style="line-height: 1.8;">
-            <p>Финтех компаниявходит в международную группу  и занимается развитием факторингового бизнеса. В связи с расширением штата, мы хотим усилить нашу команду Backend-разработчиком, для работы над улучшением продуктов компании.</p>
+            <p>{{ vacancy.company.description }}</p>
             <p><b>Мы предлагаем: </b><br>
               Оформление по ТК РФ<br>
               ДМС со стоматологией<br>
@@ -51,24 +51,31 @@
               Опыт работы в команде по Scrum
             </p>
           </div>
-          <form action="/echo" class="card mt-4 mb-3">
+          {% if username %}
+          <form action="" method="post" class="card mt-4 mb-3">{% csrf_token %}
+            {% if args.repeat %}
+              <p class="alert alert-info mx-4 my-3" role="alert">Отклик уже отправлен!</p>
+            {% endif %}
             <div class="card-body mx-3">
               <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
               <div class="form-group">
                 <label class="mb-1 mt-2" for="userName">Вас зовут</label>
-                <input class="form-control" type="text" placeholder="" id="userName">
+                {{ form.written_username }}
               </div>
               <div class="form-group">
                 <label class="mb-1" for="userPhone">Ваш телефон</label>
-                <input class="form-control" type="tel" placeholder="" id="userPhone">
+                {{ form.written_phone }}
               </div>
               <div class="form-group">
                 <label class="mb-1" for="userMsg" >Сопроводительное письмо</label>
-                <textarea class="form-control" rows="8" id="userMsg"></textarea>
+                {{ form.written_cover_letter }}
               </div>
-              <input type="submit" class="btn btn-primary mt-4 mb-2" value="Записаться на пробный урок">
+              <input type="submit" class="btn btn-primary mt-4 mb-2" value="Отправить резюме">
             </div>
           </form>
+          {% else %}
+          <p class="alert alert-info mx-4 my-3" role="alert">Войдите, чтобы отправить резюме</p>
+          {% endif %}
         </section>
       </div>
     </div>
