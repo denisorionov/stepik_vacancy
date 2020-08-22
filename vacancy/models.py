@@ -13,6 +13,11 @@ class Specialty(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def picture_url(self):
+        if self.picture and hasattr(self.picture, 'url'):
+            return self.picture.url
+
 
 class Company(models.Model):
     name = models.CharField(max_length=80, default=None, null=True, blank=True)
@@ -23,9 +28,14 @@ class Company(models.Model):
     test = models.TextField(default=None, null=True, blank=True)
     logo = models.ImageField(upload_to='logo', height_field='height_field', width_field='width_field',
                              default=None, null=True, blank=True)
-    height_field = models.PositiveIntegerField(default=0)
-    width_field = models.PositiveIntegerField(default=0)
+    height_field = models.PositiveIntegerField(default=0, null=True)
+    width_field = models.PositiveIntegerField(default=0, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user', default=None, null=True, blank=True)
+
+    @property  # для отображения вакансий у компаний которых нет logo; в шаблоне: object.logo_url|default_if_none:'#'
+    def logo_url(self):
+        if self.logo and hasattr(self.logo, 'url'):
+            return self.logo.url
 
 
 class Vacancy(models.Model):

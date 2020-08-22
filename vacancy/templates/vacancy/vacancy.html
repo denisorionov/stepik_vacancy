@@ -51,7 +51,7 @@
               Опыт работы в команде по Scrum
             </p>
           </div>
-          {% if username %}
+          {% if request.user.is_authenticated %}
           <form action="" method="post" class="card mt-4 mb-3">{% csrf_token %}
             {% if args.repeat %}
               <p class="alert alert-info mx-4 my-3" role="alert">Отклик уже отправлен!</p>

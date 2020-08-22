@@ -21,7 +21,7 @@
           <div class="card-body px-4 pb-4 tab-content">
             <!-- Tab -->
             <section>
-              <h2 class="h4 pt-2 pb-3">Backend Middle/Senior</h2>
+              <h2 class="h4 pt-2 pb-3">{{ applications.first.vacancy.title }}</h2>
               <form method="post" action="">{% csrf_token %}
                 {% if args.inf_edit %}
               <p class="alert alert-info" role="alert">Вакансия обновлена</p>

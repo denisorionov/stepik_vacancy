@@ -4,31 +4,31 @@ from django.contrib import admin
 from django.urls import path
 
 from vacancy.views import MainView, custom_handler404, custom_handler500, VacanciesView, SpecializationView, \
-    CompanyView, VacancyView, VacanciesSendView, MyVacanciesView, MyVacancy, MySignupView, login, logout, \
-    MyResumeView, MyResumeCreate, CompanyEdit, MyCompanyView, MyVacanciesCreateView, NewVacancyView
+    CompanyView, VacancyView, MyVacanciesView, MyVacancy, MySignupView, login, logout, \
+    MyResumeView, MyResumeCreate, CompanyEdit, MyCompanyView, NewVacancyView, SearchView, MyVacanciesCreateView
 
 handler404 = custom_handler404
 handler500 = custom_handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', MainView.as_view(), name='index'),
-    path('vacancies/', VacanciesView.as_view()),
-    path('vacancies/cat/<str:specialization>/', SpecializationView.as_view()),
-    path('companies/<int:id>/', CompanyView.as_view()),
-    path('vacancies/<int:id>/', VacancyView.as_view(), name='vacancy'),
-    path('vacancies/<int:id>/send/', VacanciesSendView.as_view(), name='vacancy_send'),
-    path('mycompany/', MyCompanyView.as_view()),
-    path('mycompany/edit/', CompanyEdit.as_view(), name='company_edit'),
-    path('mycompany/vacancies/', MyVacanciesView.as_view()),
-    path('mycompany/vacancies/create/', MyVacanciesCreateView.as_view()),
-    path('mycompany/vacancies/create/new', NewVacancyView.as_view()),
-    path('mycompany/vacancies/<int:id>', MyVacancy.as_view(), name='my_vacancy_edit'),
-    path('signup/', MySignupView.as_view(), name='signup'),
+    path('', MainView.as_view(), name='index'),  # главная
+    path('search/', SearchView.as_view(), name='search'),  # поиск
+    path('vacancies/', VacanciesView.as_view()),  # все вакансии
+    path('vacancies/cat/<str:specialization>/', SpecializationView.as_view()),  # вакансии по специализации
+    path('companies/<int:id>/', CompanyView.as_view()),  # вакансии компании
+    path('vacancies/<int:id>/', VacancyView.as_view(), name='vacancy'),  # вакансия
+    path('mycompany/', MyCompanyView.as_view()),  # страница с кнопкой создания компании
+    path('mycompany/edit/', CompanyEdit.as_view(), name='company_edit'),  # страница редактирования компании
+    path('mycompany/vacancies/', MyVacanciesView.as_view()),  # список вакансий в личном кабинете компании
+    path('mycompany/vacancies/create/', MyVacanciesCreateView.as_view()),  # страница с кнопкой создания вакансии
+    path('mycompany/vacancies/create/new', NewVacancyView.as_view()),  # страница создания новой вакансии
+    path('mycompany/vacancies/<int:id>', MyVacancy.as_view(), name='my_vacancy_edit'),  # редактирование вакансии компании
+    path('myresume/', MyResumeView.as_view()),  # страница резюме пользователя
+    path('myresume/create/', MyResumeCreate.as_view(), name='my_resume_create'),  # страница создания/редактирования резюме
+    path('signup/', MySignupView.as_view(), name='signup'),  # регистрация
     path('login/', login, name='login'),
-    path('logout/', logout, name='logout'),
-    path('myresume/', MyResumeView.as_view()),
-    path('myresume/create/', MyResumeCreate.as_view(), name='my_resume_create')
+    path('logout/', logout, name='logout')
 ]
 
 if settings.DEBUG:
