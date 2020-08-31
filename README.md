@@ -3,7 +3,7 @@ Second training project for [a course on the Stepik](<https://stepik.org/course/
 
 All requirements are listed in the file: `requirements.txt`.
 
-Website link: https://stepikvacancy.herokuapp.com/
+Link on website: https://stepikvacancy.herokuapp.com/
 
 #### Сайт состоит из следующих страниц:
 
