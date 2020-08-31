@@ -22,7 +22,7 @@
                   <p class="text-muted pt-1">{{ vacancy.published_at }}</p>
                 </div>
                 <div class="col-12 col-md-4 col-lg-3 d-flex align-items-end">
-                  <a href="/companies/{{ vacancy.company.id }}"><img src="{{ vacancy.company.logo_url|default_if_none:'#' }}" width="130" height="80" alt=""></a>
+                  <a href="/companies/{{ vacancy.company.id }}">{% if vacancy.company.logo %}<img src="{{ vacancy.company.logo_url }}" width="130" height="80" alt=""></a>{% endif %}
                 </div>
               </div>
             </div>
