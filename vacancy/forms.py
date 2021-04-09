@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from vacancy.models import Company, Resume, Vacancy, Application
 
@@ -14,6 +15,13 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name')
+
+    def clean(self):
+        if not self.cleaned_data['first_name'].isalpha():
+            raise forms.ValidationError({"first_name": "Имя должно содержать только буквы"})
+        if not self.cleaned_data['last_name'].isalpha():
+            raise forms.ValidationError({'last_name': 'Фамилия должна содержать только буквы'})
+        return self.cleaned_data
 
 
 class CompanyForm(forms.ModelForm):
