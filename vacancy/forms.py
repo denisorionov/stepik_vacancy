@@ -16,12 +16,15 @@ class RegisterForm(forms.ModelForm):
         model = User
         fields = ('username', 'first_name', 'last_name')
 
-    def clean(self):
+    def clean_first_name(self):
         if not self.cleaned_data['first_name'].isalpha():
-            raise forms.ValidationError({"first_name": "Имя должно содержать только буквы"})
+            raise forms.ValidationError('Имя должно содержать только буквы')
+        return self.cleaned_data['first_name']
+
+    def clean_last_name(self):
         if not self.cleaned_data['last_name'].isalpha():
-            raise forms.ValidationError({'last_name': 'Фамилия должна содержать только буквы'})
-        return self.cleaned_data
+            raise forms.ValidationError('Фамилия должна содержать только буквы')
+        return self.cleaned_data['last_name']
 
 
 class CompanyForm(forms.ModelForm):
